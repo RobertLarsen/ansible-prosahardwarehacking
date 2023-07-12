@@ -1,5 +1,4 @@
 galaxy_info:
-  role_name: ansible-prosahardwarehacking
   author: Robert Larsen <robert@the-playground.dk>
   description: Set up tools for hardware hacking
   license: GPL-2.0-or-later
