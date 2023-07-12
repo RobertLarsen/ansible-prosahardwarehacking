@@ -1,0 +1,13 @@
+---
+repository_path: "{{ ansible_user_dir }}/.repository"
+icon_install_path: "{{ ansible_user_dir }}/.local/share/applications"
+
+ghidra_version: 10.3.1
+ghidra_release_date: 20230614
+ghidra_archive: "ghidra_{{ ghidra_version }}_PUBLIC_{{ ghidra_release_date }}.zip"
+ghidra_url: "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_{{ ghidra_version }}_build/{{ ghidra_archive }}"
+ghidra_path: "/opt/ghidra_{{ ghidra_version }}_PUBLIC"
+ghidra_scripts_path: "{{ ansible_user_dir }}/ghidra_scripts"
+
+sasquatch_repo: https://github.com/RobertLarsen/sasquatch.git
+sasquatch_dir: "{{ repository_path }}/sasquatch"

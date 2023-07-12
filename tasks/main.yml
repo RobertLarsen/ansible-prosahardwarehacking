@@ -1,0 +1,90 @@
+---
+- name: Install packages
+  become: true
+  package:
+    name:
+      - binwalk
+      - gcc-mipsel-linux-gnu
+      - binutils-mipsel-linux-gnu
+      - gdb-multiarch
+      - git
+      - qemu-system-mips
+      - binfmt-support
+      - qemu-user-static
+
+- name: Have qemu binfmt dir
+  become: true
+  file:
+    path: /etc/qemu-binfmt
+    state: directory
+
+- name: Point to MIPS root
+  become: true
+  file:
+    dest: /etc/qemu-binfmt/mipsel
+    src: /usr/mipsel-linux-gnu
+    state: link
+
+- name: Have directory for building software from source
+  file:
+    path: "{{ repository_path }}"
+    state: directory
+
+- name: Sasquatch
+  block:
+    - name: Install prerequisites
+      become: true
+      package:
+        name:
+          - build-essential
+          - liblzma-dev
+          - liblzo2-dev
+          - zlib1g-dev
+
+    - name: Have source code
+      git:
+        repo: "{{ sasquatch_repo }}"
+        dest: "{{ sasquatch_dir }}"
+        update: no
+
+    - name: Build sasquatch
+      become: true
+      shell:
+        chdir: "{{ sasquatch_dir }}"
+        cmd: "./build.sh"
+        creates: /usr/local/bin/sasquatch
+
+- name: Ghidra
+  block:
+    - name: Install Java
+      become: true
+      package:
+        name:
+          - openjdk-19-jdk
+
+    - name: Have Ghidra
+      become: true
+      unarchive:
+          src: "{{ ghidra_url }}"
+          remote_src: yes
+          dest: /opt
+          creates: "{{ ghidra_path }}"
+
+    - name: Have processor manual paths
+      become: true
+      file:
+          path: "{{ ghidra_path }}/Ghidra/Processors/MIPS/data/manuals"
+          recurse: yes
+          state: directory
+
+    - name: Give processor manuals to Ghidra
+      become: true
+      copy:
+          src: MD00087-2B-MIPS64BIS-AFP-6.06.pdf
+          dest: "{{ ghidra_path }}/Ghidra/Processors/MIPS/data/manuals"
+
+    - name: Have desktop icon
+      template:
+          src: "Ghidra.desktop"
+          dest: "{{ icon_install_path }}"
+          mode: 0775

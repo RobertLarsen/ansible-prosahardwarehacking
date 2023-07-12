@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version={{ ghidra_version }}
+Type=Application
+Terminal=false
+Icon[en_US]={{ ghidra_path }}/docs/images/GHIDRA_1.png
+Name[en_US]=Ghidra
+Exec={{ ghidra_path }}/ghidraRun
+Comment[en_US]=Ghidra
+Name=Ghidra
+Comment=Ghidra
+Icon={{ ghidra_path }}/docs/images/GHIDRA_1.png
