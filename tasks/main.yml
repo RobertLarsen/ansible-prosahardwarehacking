@@ -3,14 +3,15 @@
   become: true
   package:
     name:
+      - binfmt-support
+      - binutils-mipsel-linux-gnu
       - binwalk
       - gcc-mipsel-linux-gnu
-      - binutils-mipsel-linux-gnu
       - gdb-multiarch
       - git
       - qemu-system-mips
-      - binfmt-support
       - qemu-user-static
+      - screen
 
 - name: Have qemu binfmt dir
   become: true
