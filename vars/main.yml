@@ -18,3 +18,9 @@ saleae_url: "https://downloads.saleae.com/logic/1.2.18/Logic%20{{saleae_version}
 
 gef_repo: https://github.com/hugsy/gef.git
 gef_dir: "{{ repository_path }}/gef"
+
+static_repo: https://github.com/stayliv3/gdb-static-cross.git
+static_dir: "{{ repository_path }}/gdb-static-cross"
+
+mtd_utils_repo: https://kernel.googlesource.com/pub/scm/linux/kernel/git/rw/mtd-utils
+mtd_utils_dir: "{{ repository_path }}/mtd-utils"

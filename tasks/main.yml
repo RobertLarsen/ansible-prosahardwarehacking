@@ -49,6 +49,16 @@
           dest: "{{ ansible_user_dir }}/.gdbinit"
           mode: 0775
 
+    - name: Have static gdbservers
+      git:
+        repo: "{{ static_repo }}"
+        dest: "{{ static_dir }}"
+
+    - name: Have mtd-utils
+      git:
+        repo: "{{ mtd_utils_repo }}"
+        dest: "{{ mtd_utils_dir }}"
+
 - name: Have qemu binfmt dir
   become: true
   file:
