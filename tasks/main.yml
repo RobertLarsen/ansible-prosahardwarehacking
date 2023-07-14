@@ -88,3 +88,50 @@
           src: "Ghidra.desktop"
           dest: "{{ icon_install_path }}"
           mode: 0775
+
+- name: Saleae
+  block:
+    - name: Get Saleae software
+      become: true
+      unarchive:
+          remote_src: yes
+          src: "{{saleae_url}}"
+          dest: "/opt"
+          creates: "{{saleae_path}}"
+
+    - name: Symlink Saleae
+      become: true
+      file:
+          src: "{{saleae_path}}"
+          dest: /opt/saleae
+          state: link
+
+    - name: Make Saleae directories writable
+      become: true
+      file:
+          mode: 0777
+          path: "{{item}}"
+      with_items:
+          - "{{saleae_path}}"
+          - "{{saleae_path}}/Databases"
+          - "{{saleae_path}}/Settings"
+
+    - name: Have Saleae udev rules
+      become: true
+      file:
+          src: /opt/saleae/Drivers/99-SaleaeLogic.rules
+          dest: /etc/udev/rules.d/99-SaleaeLogic.rules
+          state: link
+      notify: Reload udevd
+
+    - name: Have a Saleae icon image
+      become: true
+      copy:
+          src: Saleae.jpg
+          dest: /opt/saleae/Saleae.jpg
+
+    - name: Have a Saleae desktop icon
+      copy:
+          src: Saleae Logic Analyzer.desktop
+          dest: "{{ icon_install_path }}"
+          mode: 0775

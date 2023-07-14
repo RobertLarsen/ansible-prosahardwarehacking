@@ -1,0 +1,5 @@
+---
+- name: Reload udevd
+  become: true
+  command:
+    cmd: udevadm trigger

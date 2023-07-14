@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[en_US]=/opt/saleae/Saleae.jpg
+Name[en_US]=Saleae Logic Analyzer
+Exec=/opt/saleae/Logic
+Comment[en_US]=Saleae Logic Analyzer
+Name=Saleae Logic Analyzer
+Comment=Saleae Logic Analyzer
+Icon=/opt/saleae/Saleae.jpg

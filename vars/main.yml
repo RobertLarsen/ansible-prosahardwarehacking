@@ -11,3 +11,7 @@ ghidra_scripts_path: "{{ ansible_user_dir }}/ghidra_scripts"
 
 sasquatch_repo: https://github.com/RobertLarsen/sasquatch.git
 sasquatch_dir: "{{ repository_path }}/sasquatch"
+
+saleae_version: 1.2.18
+saleae_path: "/opt/Logic {{saleae_version}} (64-bit)"
+saleae_url: "https://downloads.saleae.com/logic/1.2.18/Logic%20{{saleae_version}}%20(64-bit).zip"
