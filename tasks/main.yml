@@ -4,6 +4,19 @@
     path: "{{ repository_path }}"
     state: directory
 
+- name: Customization
+  block:
+    - name: Have bashrc
+      copy:
+          src: bashrc
+          dest: "{{ ansible_user_dir }}/.my-bashrc"
+
+    - name: Source bashrc
+      lineinfile:
+        path: "{{ ansible_user_dir }}/.bashrc"
+        line: "source {{ ansible_user_dir }}/.my-bashrc"
+
+
 - name: Install packages
   become: true
   package:
