@@ -3,3 +3,9 @@
   become: true
   command:
     cmd: udevadm trigger
+
+- name: Restart tftp server
+  become: true
+  systemd:
+    state: restarted
+    name: tftpd-hpa

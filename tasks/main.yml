@@ -136,3 +136,17 @@
           src: Saleae Logic Analyzer.desktop
           dest: "{{ icon_install_path }}"
           mode: 0775
+
+- name: tftp server
+  become: true
+  block:
+    - name: Install server
+      package:
+        name:
+          - tftpd-hpa
+    - name: Reconfigure
+      lineinfile:
+        path: /etc/default/tftpd-hpa
+        line: TFTP_OPTIONS="--permissive --create --secure"
+        regexp: '^TFTP_OPTIONS="--secure"'
+      notify: Restart tftp server
