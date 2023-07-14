@@ -1,0 +1,6 @@
+macro define offsetof(_type, _memb) ((long)(&((_type *)0)->_memb))
+macro define containerof(_ptr, _type, _memb) ((_type *)((void *)(_ptr) - offsetof(_type, _memb)))
+set follow-fork-mode child
+set disassembly-flavor intel
+set auto-load safe-path /
+source {{ gef_dir }}/gef.py

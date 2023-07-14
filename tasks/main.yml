@@ -1,4 +1,9 @@
 ---
+- name: Have directory for building software from source
+  file:
+    path: "{{ repository_path }}"
+    state: directory
+
 - name: Install packages
   become: true
   package:
@@ -7,11 +12,29 @@
       - binutils-mipsel-linux-gnu
       - binwalk
       - gcc-mipsel-linux-gnu
-      - gdb-multiarch
       - git
       - qemu-system-mips
       - qemu-user-static
       - screen
+
+- name: GDB
+  block:
+    - name: Install
+      become: true
+      package:
+        name:
+          - gdb-multiarch
+
+    - name: Have gef
+      git:
+        repo: "{{ gef_repo }}"
+        dest: "{{ gef_dir }}"
+
+    - name: Have gdbinit
+      template:
+          src: "gdbinit"
+          dest: "{{ ansible_user_dir }}/.gdbinit"
+          mode: 0775
 
 - name: Have qemu binfmt dir
   become: true
@@ -25,11 +48,6 @@
     dest: /etc/qemu-binfmt/mipsel
     src: /usr/mipsel-linux-gnu
     state: link
-
-- name: Have directory for building software from source
-  file:
-    path: "{{ repository_path }}"
-    state: directory
 
 - name: Sasquatch
   block:
